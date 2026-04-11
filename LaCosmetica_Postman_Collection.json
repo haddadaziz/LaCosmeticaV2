@@ -1,0 +1,62 @@
+{
+	"info": {
+		"name": "La Cosmetica V2 - API Collection",
+		"description": "Collection complète pour tester le backend E-Commerce La Cosmetica (Authentification JWT, Catalogue DAO, Commandes et Stats QueryBuilder).",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Authentication",
+			"item": [
+				{
+					"name": "S'inscrire (Register)",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"url": {"raw": "http://localhost:8000/api/auth/register", "host": ["http://localhost:8000/api/auth/register"]},
+						"body": {"mode": "raw", "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john@lacosmetica.com\",\n  \"password\": \"password123\"\n}"}
+					}
+				},
+				{
+					"name": "Se Connecter (Login)",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Content-Type", "value": "application/json"}],
+						"url": {"raw": "http://localhost:8000/api/auth/login", "host": ["http://localhost:8000/api/auth/login"]},
+						"body": {"mode": "raw", "raw": "{\n  \"email\": \"postman@lacosmetica.com\",\n  \"password\": \"password123\"\n}"}
+					}
+				}
+			]
+		},
+		{
+			"name": "2. Catalogue Cosmétique",
+			"item": [
+				{
+					"name": "Consulter tous les produits",
+					"request": {"method": "GET", "url": {"raw": "http://localhost:8000/api/products", "host": ["http://localhost:8000/api/products"]}}
+				},
+				{
+					"name": "Détails d'un produit (Slug)",
+					"request": {"method": "GET", "url": {"raw": "http://localhost:8000/api/products/creme-hydratante-a-laloe-vera", "host": ["http://localhost:8000/api/products/creme-hydratante-a-laloe-vera"]}}
+				}
+			]
+		},
+		{
+			"name": "3. Commandes (Bearer Token Requis)",
+			"item": [
+				{
+					"name": "Passer une commande",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "Content-Type", "value": "application/json"},
+							{"key": "Authorization", "value": "Bearer VOTRE_TOKEN_JWT"}
+						],
+						"url": {"raw": "http://localhost:8000/api/orders", "host": ["http://localhost:8000/api/orders"]},
+						"body": {"mode": "raw", "raw": "{\n  \"total_price\": 19.90,\n  \"items\": [\n    { \"product_id\": 3, \"quantity\": 1, \"unit_price\": 19.90 }\n  ]\n}"}
+					}
+				}
+			]
+		}
+	]
+}

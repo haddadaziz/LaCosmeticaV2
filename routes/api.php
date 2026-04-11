@@ -22,3 +22,20 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'auth'], function () {
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::get('me', [AuthController::class, 'me']);
 });
+
+Route::group(['middleware' => 'auth:api'], function () {
+    // Espace Client
+    Route::get('orders', [\App\Http\Controllers\Api\OrderController::class, 'myOrders']);
+    Route::post('orders', [\App\Http\Controllers\Api\OrderController::class, 'store']);
+    Route::post('orders/{id}/cancel', [\App\Http\Controllers\Api\OrderController::class, 'cancel']);
+    
+    // Espace Employé/Admin
+    Route::get('staff/orders/pending', [\App\Http\Controllers\Api\OrderController::class, 'pendingOrders']);
+    Route::put('staff/orders/{id}/status', [\App\Http\Controllers\Api\OrderController::class, 'updateStatus']);
+    
+    // Espace Admin
+    Route::get('admin/stats', [\App\Http\Controllers\Api\AdminController::class, 'stats']);
+    Route::post('admin/products', [\App\Http\Controllers\Api\ProductController::class, 'store']);
+    Route::put('admin/products/{id}', [\App\Http\Controllers\Api\ProductController::class, 'update']);
+    Route::delete('admin/products/{id}', [\App\Http\Controllers\Api\ProductController::class, 'destroy']);
+});
